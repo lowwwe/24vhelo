@@ -103,6 +103,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	animate();
 }
 
 /// <summary>
@@ -112,8 +113,23 @@ void Game::render()
 {
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_welcomeMessage);
-	m_window.draw(m_logoSprite);
+	m_window.draw(m_heloSprite);
 	m_window.display();
+}
+
+void Game::animate()
+{
+	int lastFrame = m_currentFrame;
+	m_frameCounter += m_frameIncrement;
+	m_currentFrame = static_cast<int>(m_frameCounter) % 4;
+	if (m_currentFrame != lastFrame)
+	{
+		m_heloSprite.setTextureRect(sf::IntRect{0, 64 * m_currentFrame, 180, 64});
+		// first frame m_heloSprite.setTextureRect(sf::IntRect{0, 0, 180, 64}); 
+		// second freame m_heloSprite.setTextureRect(sf::IntRect{0, 64, 180, 64}); 
+		// third   m_heloSprite.setTextureRect(sf::IntRect{0, 128, 180, 64});
+		// fourth   m_heloSprite.setTextureRect(sf::IntRect{0, 196, 180, 64});
+	}
 }
 
 /// <summary>
@@ -148,4 +164,12 @@ void Game::setupSprite()
 	}
 	m_logoSprite.setTexture(m_logoTexture);
 	m_logoSprite.setPosition(300.0f, 180.0f);
+	if (!m_heloTexture.loadFromFile("ASSETS\\IMAGES\\helicopter.PNG"))
+	{
+		std::cout << "helo gone!!";
+	}
+	m_heloSprite.setTexture(m_heloTexture);
+	m_heloSprite.setTextureRect(sf::IntRect(0, 0, 180, 64));
+	m_heloSprite.setPosition(m_location);
+
 }

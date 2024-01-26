@@ -27,9 +27,12 @@ private:
 	void processKeys(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
-	
+
+	void animate();
+
 	void setupFontAndText();
 	void setupSprite();
+
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -37,6 +40,15 @@ private:
 	sf::Texture m_logoTexture; // texture used for sfml logo
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
+
+	sf::Vector2f m_location = { 200.0f,200.0f };
+
+
+	sf::Texture m_heloTexture;// helo text
+	sf::Sprite m_heloSprite;// helo sprite
+	int m_currentFrame = 0;// frame no
+	float m_frameCounter = 0.0f;// framce inc
+	float m_frameIncrement = 0.25f;// inc amt
 
 };
 
