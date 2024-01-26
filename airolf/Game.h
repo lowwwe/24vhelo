@@ -1,4 +1,5 @@
-/// <summary>
+#include <SFML/Graphics.hpp>
+/// /// <summary>
 /// author Pete Lowe May 2019
 /// you need to change the above line or lose marks
 /// </summary>
@@ -9,7 +10,8 @@
 /// same as #pragma once
 /// Don't forget the endif at the bottom
 /// </summary>
-#include <SFML/Graphics.hpp>
+
+
 
 class Game
 {
@@ -29,6 +31,7 @@ private:
 	void render();
 
 	void animate();
+	void move();
 
 	void setupFontAndText();
 	void setupSprite();
@@ -41,7 +44,9 @@ private:
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
 
-	sf::Vector2f m_location = { 200.0f,200.0f };
+	sf::Vector2f m_location = { 200.0f,200.0f }; // position of helo
+	sf::Vector2f m_velocity = { 2.2f, 2.2f };// velocity of helo
+	float m_speed = 5.0f; // helicopter speed == 400mph
 
 
 	sf::Texture m_heloTexture;// helo text

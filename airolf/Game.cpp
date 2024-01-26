@@ -104,6 +104,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	animate();
+	move();
 }
 
 /// <summary>
@@ -130,6 +131,12 @@ void Game::animate()
 		// third   m_heloSprite.setTextureRect(sf::IntRect{0, 128, 180, 64});
 		// fourth   m_heloSprite.setTextureRect(sf::IntRect{0, 196, 180, 64});
 	}
+}
+
+void Game::move()
+{
+	m_location += m_velocity;
+	m_heloSprite.setPosition(m_location);
 }
 
 /// <summary>
