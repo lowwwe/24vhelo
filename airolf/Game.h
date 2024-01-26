@@ -27,6 +27,7 @@ private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processMouse(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 
@@ -45,8 +46,9 @@ private:
 	bool m_exitGame; // control exiting game
 
 	sf::Vector2f m_location = { 200.0f,200.0f }; // position of helo
-	sf::Vector2f m_velocity = { 2.2f, 2.2f };// velocity of helo
+	sf::Vector2f m_velocity = { 0.0f, 0.0f };// velocity of helo
 	float m_speed = 5.0f; // helicopter speed == 400mph
+	sf::Vector2f m_target = { 0.0f,0.0f }; // where the helo is going
 
 
 	sf::Texture m_heloTexture;// helo text

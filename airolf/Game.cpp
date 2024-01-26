@@ -77,6 +77,10 @@ void Game::processEvents()
 		{
 			processKeys(newEvent);
 		}
+		if (sf::Event::MouseButtonReleased == newEvent.type)
+		{
+			processMouse(newEvent);
+		}
 	}
 }
 
@@ -91,6 +95,18 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+}
+
+void Game::processMouse(sf::Event t_event)
+{
+	float lenght; // len of vector
+	sf::Vector2f heading{0.0f, 0.0f};// journey
+	m_target.x = static_cast<float>( t_event.mouseButton.x);
+	m_target.y = static_cast<float>(t_event.mouseButton.y);
+	heading = m_target - m_location;
+	lenght = std::sqrtf(heading.x * heading.x + heading.y * heading.y);
+	m_velocity = heading / lenght;
+	m_velocity = m_velocity * m_speed;
 }
 
 /// <summary>
