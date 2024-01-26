@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 /// /// <summary>
 /// author Pete Lowe May 2019
 /// you need to change the above line or lose marks
@@ -11,7 +12,12 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 
-
+enum class Direction
+{
+	None,
+	Left,
+	Right
+};
 
 class Game
 {
@@ -49,6 +55,7 @@ private:
 	sf::Vector2f m_velocity = { 0.0f, 0.0f };// velocity of helo
 	float m_speed = 5.0f; // helicopter speed == 400mph
 	sf::Vector2f m_target = { 0.0f,0.0f }; // where the helo is going
+	Direction m_direction = Direction::None;
 
 
 	sf::Texture m_heloTexture;// helo text
@@ -56,6 +63,10 @@ private:
 	int m_currentFrame = 0;// frame no
 	float m_frameCounter = 0.0f;// framce inc
 	float m_frameIncrement = 0.25f;// inc amt
+
+	sf::SoundBuffer m_soundbuffer;// sound buffer
+	sf::Sound m_sound;// sound player
+
 
 };
 

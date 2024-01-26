@@ -103,9 +103,21 @@ void Game::processMouse(sf::Event t_event)
 	sf::Vector2f heading{0.0f, 0.0f};// journey
 	m_target.x = static_cast<float>( t_event.mouseButton.x);
 	m_target.y = static_cast<float>(t_event.mouseButton.y);
+	if (m_target.x < m_location.x)
+	{
+		m_direction = Direction::Left;
+		m_heloSprite.setScale(-1.0f, 1.0f);
+	}
+	else
+	{
+		m_direction = Direction::Right;
+		m_heloSprite.setScale(1.0f, 1.0f);		
+	}
 	heading = m_target - m_location;
+	m_sound.setPitch(1.0f);
 	lenght = std::sqrtf(heading.x * heading.x + heading.y * heading.y);
 	m_velocity = heading / lenght;
+	m_frameIncrement = 0.75f;
 	m_velocity = m_velocity * m_speed;
 }
 
@@ -151,7 +163,24 @@ void Game::animate()
 
 void Game::move()
 {
-	m_location += m_velocity;
+	if ( Direction::None != m_direction )
+	{
+		m_location += m_velocity;
+		if (Direction::Left == m_direction 
+			&& m_target.x > m_location.x)
+		{
+			m_direction = Direction::None;
+			m_frameIncrement = 0.25f;
+			m_sound.setPitch(0.5f);
+		}
+		if (Direction::Right == m_direction &&
+			m_target.x < m_location.x)
+		{
+			m_direction = Direction::None;
+			m_frameIncrement = 0.25f;
+			m_sound.setPitch(0.5f);
+		}
+	}
 	m_heloSprite.setPosition(m_location);
 }
 
@@ -194,5 +223,12 @@ void Game::setupSprite()
 	m_heloSprite.setTexture(m_heloTexture);
 	m_heloSprite.setTextureRect(sf::IntRect(0, 0, 180, 64));
 	m_heloSprite.setPosition(m_location);
+	m_heloSprite.setOrigin(90.0f, 32.0f);
 
+
+	m_soundbuffer.loadFromFile("ASSETS\\SOUNDS\\helicopter.WAV");
+	m_sound.setBuffer(m_soundbuffer);
+	m_sound.play();
+	m_sound.setPitch(0.3f);
+	m_sound.setLoop(true);
 }
